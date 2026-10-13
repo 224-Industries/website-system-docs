@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>224 Go To Market Website System Docs | 224 Industries</title>
+<meta name="description" content="How your 224 GTM Website System is put together, what's yours to change, and how to ask your AI agent for help.">
+<link rel="icon" type="image/svg+xml" href="assets/icon-dark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* 224 Visual System tokens, light theme (Figma v4.0a) */
+    --theme-background: #ffffff;
+    --theme-text-1: #111212;
+    --theme-border: #E2E2E2;
+    --light-300: #F0F0F0;
+    --dark-700: #6F7373;
+    --brand-100: #E1FFF8;
+    --brand-500: #6AFFDC;
+    --brand-600: #58D0B4;
+    --brand-text: #111212;
+
+    --space-3: 16px;
+    --space-4: 24px; /* space/4: not in the 08-09 Figma pull; 24 sits between space/3 and space/5 and matches size/1,5 */
+    --space-5: 32px;
+    --space-6: 40px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --section-space-small: 80px;
+    --site-margin: 48px;
+    --site-gutter: 32px;
+
+    --radius-medium: 8px;
+    --radius-main: 16px;
+    --hair: 0.5px;
+
+    /* Exception: the scale has no step below 16, so tight gaps use 8 (same value as radius/medium) */
+    --gap-tight: 8px;
+
+    --font: Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-code: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  /* 0.5px hairlines can vanish on standard-resolution screens */
+  @media (max-resolution: 1.49dppx), (-webkit-max-device-pixel-ratio: 1.49) {
+    :root { --hair: 1px; }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--theme-background);
+    color: var(--theme-text-1);
+    font-family: var(--font);
+    font-size: 16px; line-height: 1.3; letter-spacing: -0.03em; /* Text Main */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Type scale */
+  h1 { font-size: 44px; font-weight: 500; line-height: 1.0; letter-spacing: -0.05em; margin: 0; }
+  h2 { font-size: 36px; font-weight: 500; line-height: 1.0; letter-spacing: -0.05em; margin: 0 0 var(--space-4); }
+  h3 { font-size: 22px; font-weight: 500; line-height: 1.3; letter-spacing: -0.03em; margin: var(--space-6) 0 var(--space-3); } /* H5 */
+  h4 { font-size: 18px; font-weight: 500; line-height: 1.3; letter-spacing: -0.03em; margin: var(--space-5) 0 var(--space-3); } /* H6 */
+  p { margin: 0 0 var(--space-3); }
+  .lead { font-size: 20px; line-height: 1.3; letter-spacing: -0.03em; } /* Text Large */
+  .small { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; }
+  strong { font-weight: 500; }
+  code {
+    font-family: var(--font-code); font-size: 0.875em; letter-spacing: 0;
+    background: var(--light-300); border-radius: 4px; padding: 0.1em 0.35em;
+    overflow-wrap: anywhere;
+  }
+
+  a { color: inherit; text-decoration: underline; text-decoration-color: var(--theme-border);
+      text-decoration-thickness: 1px; text-underline-offset: 0.2em; transition: text-decoration-color .15s; }
+  a:hover { text-decoration-color: var(--theme-text-1); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--theme-text-1); outline-offset: 3px; border-radius: 4px;
+  }
+
+  ul, ol { margin: 0 0 var(--space-3); padding-left: 1.25em; }
+  li { margin-bottom: var(--gap-tight); }
+  li::marker { color: var(--dark-700); }
+
+  /* Header */
+  .site-header { border-bottom: var(--hair) solid var(--theme-border); }
+  .site-header-inner {
+    max-width: 1200px; margin: 0 auto; padding: var(--space-3) var(--site-margin);
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  }
+  .site-header .logo { display: block; line-height: 0; text-decoration: none; }
+  .site-header .logo img { height: 24px; width: auto; }
+  .hl-short { display: none; }
+  @media (max-width: 480px) { .hl-long { display: none; } .hl-short { display: inline; } }
+  .header-link { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500; }
+
+  /* Hero */
+  .hero { padding: var(--section-space-small) var(--site-margin) var(--space-7); max-width: 1200px; margin: 0 auto; }
+  .hero .callout:last-child { margin-bottom: 0; }
+  .hero-inner { max-width: 720px; }
+  .eyebrow { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500; color: var(--dark-700); margin-bottom: var(--space-3); }
+  .hero h1 { margin-bottom: var(--space-5); }
+  .hero .lead { margin-bottom: var(--space-5); }
+
+  /* Layout */
+  .layout {
+    max-width: 1200px; margin: 0 auto; padding: 0 var(--site-margin) var(--section-space-small);
+    display: grid; grid-template-columns: 220px minmax(0, 720px); gap: var(--space-8);
+  }
+  .toc { position: sticky; top: var(--space-5); align-self: start; max-height: calc(100vh - 64px); overflow: auto; }
+  .toc-title { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 700; margin-bottom: var(--gap-tight); }
+  .toc ul { list-style: none; padding: 0; margin: 0; }
+  .toc > ul { border-left: var(--hair) solid var(--theme-border); }
+  .toc li { margin: 0; }
+  .toc ul ul a { padding-left: var(--space-5); }
+  .toc a {
+    display: block; padding: 6px 0 6px var(--space-3); margin-left: -1px;
+    border-left: 2px solid transparent;
+    font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; color: var(--dark-700); text-decoration: none;
+  }
+  .toc a:hover { color: var(--theme-text-1); }
+  .toc a.active { color: var(--theme-text-1); border-left-color: var(--theme-text-1); font-weight: 500; }
+
+  main section { padding-top: var(--space-3); margin-bottom: var(--section-space-small); scroll-margin-top: var(--space-5); }
+  main section:last-of-type { margin-bottom: var(--space-8); }
+  [id] { scroll-margin-top: var(--space-5); }
+
+  /* Callouts */
+  .callout {
+    border-radius: var(--radius-main); padding: var(--space-3) 20px; margin: var(--space-5) 0;
+    background: var(--light-300);
+  }
+  .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+  .callout .label {
+    display: block; font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 4px;
+  }
+  .callout.care { background: transparent; border: 1px solid var(--theme-text-1); }
+  .callout.role { background: transparent; border: var(--hair) solid var(--theme-border); }
+
+  /* Prompt blocks */
+  .prompt {
+    background: var(--brand-100); border-radius: var(--radius-main);
+    padding: var(--space-3) 20px; margin: var(--space-5) 0;
+    display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: start;
+  }
+  .prompt .label { grid-column: 1 / -1; font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 700; margin-bottom: -8px; }
+  .prompt q { quotes: none; display: block; font-size: 18px; line-height: 1.3; font-weight: 500; letter-spacing: -0.03em; }
+  .copy-btn {
+    font: inherit; font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500;
+    color: var(--theme-text-1); background: transparent; cursor: pointer;
+    border: var(--hair) solid var(--dark-700); border-radius: var(--radius-medium);
+    padding: 4px var(--space-3); white-space: nowrap; transition: background .15s, border-color .15s;
+  }
+  .copy-btn:hover { background: var(--light-100, #ffffff); border-color: #ffffff; }
+  .prompt-note { margin-top: calc(-1 * var(--space-3)); }
+
+  /* Two-column lists (replaces Notion tables) */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: var(--space-3) 0 var(--space-5);
+    border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main); overflow: hidden; }
+  .split > div { padding: 20px; }
+  .split > div + div { border-left: var(--hair) solid var(--theme-border); }
+  .split h4 { margin: 0 0 var(--space-3); font-size: 16px; line-height: 1.3; }
+  .split ul { margin: 0; padding-left: 1.1em; }
+  .split li { margin-bottom: 12px; }
+  .split li:last-child { margin-bottom: 0; }
+
+  /* Collapsible system sections */
+  details.toggle { border-top: var(--hair) solid var(--theme-border); }
+  details.toggle:last-of-type { border-bottom: var(--hair) solid var(--theme-border); }
+  details.toggle > summary {
+    list-style: none; cursor: pointer; padding: 20px 0;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+    font-size: 26px; font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; /* H4 */
+  }
+  details.toggle > summary::-webkit-details-marker { display: none; }
+  details.toggle > summary .chev { flex: none; width: 24px; height: 24px; transition: transform .2s; }
+  details.toggle[open] > summary .chev { transform: rotate(180deg); }
+  details.toggle > .toggle-body { padding-bottom: var(--space-6); }
+  details.toggle > .toggle-body > h3:first-child { margin-top: var(--space-3); }
+
+  details.mini { margin: var(--space-5) 0; border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main); }
+  details.mini > summary { cursor: pointer; padding: var(--space-3) 20px; font-weight: 500; }
+  details.mini > .mini-body { padding: 0 20px 20px; }
+
+  /* Component tree */
+  .tree, .tree ul { list-style: none; margin: 0; padding: 0; }
+  .tree ul { padding-left: 20px; border-left: var(--hair) solid var(--theme-border); margin-left: 6px; }
+  .tree li { margin: 0; padding: 4px 0 4px 10px; position: relative; }
+  .tree .opt { color: var(--dark-700); }
+
+  ol.steps { padding-left: 1.5em; }
+  ol.steps li { margin-bottom: 12px; padding-left: 4px; }
+
+  /* Support CTA */
+  .support {
+    border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main);
+    padding: var(--space-5); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap;
+  }
+  .support p { margin: 0; font-size: 22px; line-height: 1.3; font-weight: 500; letter-spacing: -0.03em; }
+  .btn-primary {
+    display: inline-block; text-decoration: none; font-weight: 500;
+    font-size: 16px; line-height: 1.3; letter-spacing: -0.03em;
+    background: var(--brand-500); color: var(--brand-text);
+    border: 1px solid var(--brand-500); border-radius: var(--radius-medium);
+    padding: 12px 20px; transition: background .15s, border-color .15s;
+  }
+  .btn-primary:hover { background: var(--brand-600); border-color: var(--brand-600); }
+
+  .site-footer {
+    border-top: var(--hair) solid var(--theme-border);
+    max-width: 1200px; margin: 0 auto;
+    padding: var(--space-5) var(--site-margin);
+    display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+  }
+  .site-footer img { height: 20px; width: auto; display: block; }
+
+  /* Mobile contents */
+  .toc-mobile { display: none; }
+
+  @media (max-width: 900px) {
+    :root { --site-margin: 16px; }
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .toc { display: none; }
+    .toc-mobile { display: block; margin-bottom: var(--space-7); border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main); }
+    .toc-mobile > summary { cursor: pointer; padding: var(--space-3) 20px; font-weight: 500; }
+    .toc-mobile ul { list-style: none; margin: 0; padding: 0 20px var(--space-3); }
+    .toc-mobile ul ul { padding: 0 0 0 var(--space-3); }
+    .toc-mobile li { margin: 0; }
+    .toc-mobile a { display: block; padding: 6px 0; text-decoration: none; }
+    .hero { padding-top: var(--space-7); padding-bottom: var(--space-5); }
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; line-height: 1.1; }
+    details.toggle > summary { font-size: 22px; line-height: 1.3; }
+    .split { grid-template-columns: 1fr; }
+    .split > div + div { border-left: 0; border-top: var(--hair) solid var(--theme-border); }
+    .prompt { grid-template-columns: 1fr; }
+    .copy-btn { justify-self: start; }
+    main section { margin-bottom: var(--space-8); }
+    .support { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="site-header-inner">
+  <a class="logo" href="https://224industries.com.au" aria-label="224 Industries home">
+    <img src="assets/logo-224Industries-dark.svg" alt="224 Industries" width="136" height="24">
+  </a>
+  <a class="header-link" href="mailto:support@224industries.com.au"><span class="hl-long">support@224industries.com.au</span><span class="hl-short">Email support</span></a>
+</div></header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Client guide</div>
+    <h1>224 Go To Market Website System Docs</h1>
+    <p class="lead">Your site runs on the 224 GTM Website System, built using the Lumos framework. This guide shows you how to use it.</p>
+    <div class="callout">
+      <span class="label">Prefer to ask?</span>
+      <p>Your site comes with 224 Agent Instructions installed, so an AI agent connected to your site can walk you through anything in this guide, on your own site. <a href="#asking-your-ai-agent">See Asking Your AI Agent below</a>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contents">
+    <div class="toc-title">Contents</div>
+    <ul>
+      <li><a href="#the-mindset">The Mindset</a></li>
+      <li><a href="#asking-your-ai-agent">Asking Your AI Agent</a></li>
+      <li><a href="#the-system">The System</a>
+        <ul>
+          <li><a href="#components">Components</a></li>
+          <li><a href="#collections">Collections</a></li>
+          <li><a href="#utility-classes">Utility Classes</a></li>
+          <li><a href="#variables">Variables</a></li>
+        </ul>
+      </li>
+      <li><a href="#your-first-step">Your First Step: Build a simple section</a></li>
+      <li><a href="#keeping-images-light">Keeping Images Light</a></li>
+      <li><a href="#using-hubspot-forms">Using HubSpot Forms</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <details class="toc-mobile">
+      <summary>Contents</summary>
+      <ul>
+        <li><a href="#the-mindset">The Mindset</a></li>
+        <li><a href="#asking-your-ai-agent">Asking Your AI Agent</a></li>
+        <li><a href="#the-system">The System</a>
+          <ul>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#utility-classes">Utility Classes</a></li>
+            <li><a href="#variables">Variables</a></li>
+          </ul>
+        </li>
+        <li><a href="#your-first-step">Your First Step: Build a simple section</a></li>
+        <li><a href="#keeping-images-light">Keeping Images Light</a></li>
+        <li><a href="#using-hubspot-forms">Using HubSpot Forms</a></li>
+      </ul>
+    </details>
+
+    <!-- The Mindset -->
+    <section id="the-mindset">
+      <h2>The Mindset</h2>
+      <p>Your website isn't a static thing you'll eventually outgrow and rebuild. It's a system, designed so your marketing team can run it, change it, and grow it without developer dependency. This guide exists to teach you that system, not Webflow. You don't need to become a web developer. You need to understand how your site is put together, and that's a much smaller, more learnable thing.</p>
+      <p>The shift we want you to make is to start <strong>building with components.</strong> Components are the building blocks of your site, and they're what you'll use to create new pages, add sections, and update content. The other three parts support them. Utility classes are styling controls you apply inside a component. Collections hold content that repeats, like blog posts, FAQs and testimonials. Variables are the settings the whole system is built on. Get comfortable with components and the rest follows.</p>
+
+      <h3>What this system is and isn't designed to do</h3>
+      <div class="split">
+        <div>
+          <h4>What this system is designed to do</h4>
+          <ul>
+            <li>Let your team make everyday changes, like copy, images, new pages, and new blog posts, without a developer in the loop.</li>
+            <li>Keep your site consistent automatically, so a change in one place flows everywhere it should.</li>
+            <li>Grow with you. New campaigns, landing pages and sections are built from blocks you already have.</li>
+            <li>Give your team ownership of the site, and the confidence to run it.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>What this system is not designed to do</h4>
+          <ul>
+            <li>Open up every Webflow setting. We've limited what's exposed so your team can move quickly without breaking the build underneath.</li>
+            <li>Be learned in a day. Start with small edits and build from there.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Who does what?</h3>
+      <p>The system is built so the things you'll do most often are also the safest. There's a clear line between editing within the system, which you're set up to do freely, and changing the system itself, which needs more care. Knowing the difference is what lets you move quickly without worrying you'll break something.</p>
+      <div class="split">
+        <div>
+          <h4>Go for it. This is yours to run</h4>
+          <ul>
+            <li>Editing text, images, and links on existing pages</li>
+            <li>Adjusting component properties like headings, colour themes, padding, and visibility</li>
+            <li>Building new pages from existing components</li>
+            <li>Adding, editing, or archiving CMS content like blog posts and case studies</li>
+            <li>Reordering sections and duplicating existing layouts</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Changes to the system itself. Take care, and email us if you're unsure</h4>
+          <ul>
+            <li>Editing a main component, which changes every instance across your site</li>
+            <li>Changing variables during a rebrand or design overhaul</li>
+            <li>Adding custom code, scripts, or new integrations</li>
+            <li>New section types or templates that don't yet exist in your system</li>
+            <li>Structural changes to site architecture, navigation, or the CMS setup</li>
+            <li>Anything where you find yourself adding classes or properties you don't understand</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="label">This system is yours to run.</span>
+        <p>Update your content, create new pages and build with components with confidence. If the system itself needs updating, we'd recommend reaching out to us at <a href="mailto:support@224industries.com.au">support@224industries.com.au</a>.</p>
+      </div>
+    </section>
+
+    <!-- Asking Your AI Agent -->
+    <section id="asking-your-ai-agent">
+      <h2>Asking Your AI Agent</h2>
+      <p>Your site comes with 224 Agent Instructions. They teach an AI agent connected to your site through Webflow's MCP server, such as Claude or ChatGPT, how your system works.</p>
+      <p>The agent is set up to show you how to make a change before it offers to do it for you. That's deliberate, so you can do it yourself next time.</p>
+
+      <div class="prompt">
+        <span class="label">Start every session with this</span>
+        <q>Read this site's agent instructions before you do anything, then tell me what rules you're working under.</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <p class="prompt-note">If it can't list the rules back, it hasn't read them. Ask again before you give it real work.</p>
+
+      <div class="prompt">
+        <span class="label">Then ask what it can do</span>
+        <q>What can you help me with on this site?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+
+      <p><strong>Describe the outcome, not the styling.</strong> "Make the heading on the pricing section one size smaller" works better than "set the h2 to 32px". Your system doesn't use pixel values, so the agent has to translate them, and it can get the translation wrong.</p>
+      <p><strong>Tell it where to look.</strong> Name the page and the section, then say what you want:</p>
+      <div class="prompt">
+        <span class="label">Template</span>
+        <q>On the [page name] page, find the [section name] section and [what you want to change].</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <p>For example: "On the Pricing page, find the pricing section and update the price on the first card." Naming the page and section means the agent doesn't have to guess which heading or card you mean.</p>
+      <p><strong>It's set up to leave publishing to you.</strong> Changes stay as drafts until someone on your team reviews them and publishes.</p>
+      <p><strong>If it suggests changing a <code>u-</code> class, a variable or a main component, take care.</strong> That changes the system itself, so make sure you understand what it will affect, and email <a href="mailto:support@224industries.com.au">support@224industries.com.au</a> if you're unsure.</p>
+    </section>
+
+    <!-- The System -->
+    <section id="the-system">
+      <h2>The System</h2>
+      <p>Your system has four main areas: components, collections, utility classes and variables. This section covers what each one does.</p>
+
+      <h3>Where you'll be working</h3>
+      <p>You'll do your editing in the Webflow Designer, directly on the canvas.</p>
+      <p>Depending on how you're set up in your team, you'll be in one of two roles:</p>
+      <p><strong>Designer</strong> gives you the widest access. You can build new pages, edit content and media, work with components and collections, and adjust everything covered in this guide. This is the role most of our clients use, and it's what this guide assumes unless noted otherwise.</p>
+      <p><strong>Marketer</strong> gives you the same visual editing experience for day-to-day work, including content, media, components, collections, and building new pages from existing components, but the underlying design system is locked. You can't accidentally change a component's core structure, edit utility classes, or alter variables. If you're in the Marketer role, think of it as the same canvas with a safety net: everything in the “yours to run” column is open to you, and the system itself is protected by default.</p>
+
+      <h3>Two pages to know: Styleguide and Examples</h3>
+      <p>Your site includes two reference pages built specifically to help your team. They're the fastest way to understand what you've got and how to use it.</p>
+      <p><strong>The Styleguide</strong> is your reference for styles. It shows your utility classes alongside visual examples of them in use, like typography, spacing, and other styling controls, plus the smaller building-block components like buttons and icons, so you can see what each one does and how it looks applied. When you want to understand the styling options available in your system, this is where you look.</p>
+      <p><strong>The Examples page</strong> is your showroom. It collects real layouts and section setups we've built with your system, so you can see how the pieces fit together in practice. When you're about to build something new, browse here first, as there's a good chance a similar layout already exists for you to learn from or reuse.</p>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Walk me through this site's Styleguide and Examples pages. What's on each one, and when would I use it?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+
+      <!-- 1. Components -->
+      <details class="toggle" id="components">
+        <summary>1. Components <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Components are the core building blocks of your site. With them you can build entirely new pages, or go back into existing ones to reorder sections, change content, and apply design controls like a section's colour theme or padding.</p>
+          <p>Components keep your site consistent. Each one is built once and reused, so a change to the main component shows up everywhere it's used. The system uses components for nearly everything, from headings to the navbar and footer.</p>
+          <p>Every section is built from a series of components. You start with basic elements like typography, buttons, and image components, wrap those in layout components, and finish with a section component. Depending on how your site was built, you may primarily use Open or Closed components. Both are explained below.</p>
+          <p>To browse the components available in your site, open the components panel in Webflow. For the smaller building blocks like buttons and icons, you can also see them in use on the styleguide page, and for full section layouts, the Examples page shows how they come together.</p>
+          <div class="callout">
+            <p>Your site will most likely include additional custom components built specifically for your project. These are just the core building blocks the system was created with.</p>
+          </div>
+          <p>For example, say you want to add a features section to a page. Rather than building it from scratch, you'd find a features section component, drop it onto the page, and update its properties to swap in your own headings and copy. The layout, spacing, and responsiveness are already handled.</p>
+
+          <h3>Understanding Component Properties</h3>
+          <p>Component properties let you modify specific aspects of a component instance, like text content, an image, or a layout or colour theme. If a component has many properties, they are sorted by the aspect they update (for example Styles, Heading, Paragraph, Image).</p>
+          <p>To edit a content property such as a heading or image:</p>
+          <ol>
+            <li>Locate the component instance that contains the element you want to modify.</li>
+            <li>Select the element on the canvas.</li>
+            <li>On the right side of the designer you'll see a properties panel. Most section components have a large number of properties sorted into dropdowns. Open and close these to focus on the property type you want to update.</li>
+            <li>Modify the element's property values (update the text, replace an image, set visibility, and so on).</li>
+          </ol>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>On the Home page, find the hero section and help me change the heading and image. Show me which overrides to use.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="callout">
+            <p>Not all components are the same, and some have fewer overrides than others, depending on what they're built to do.</p>
+          </div>
+
+          <h3>Updating Styles Within a Component</h3>
+          <p>The system lets you update visual styles within some components using component properties. Each property has a name, and often a placeholder, so use that to understand what changing it will do. For example, updating a heading from h3 to h1 changes how the heading looks. The most important style properties are set up using component variant dropdowns. This makes it easy to see your options and avoid unintended changes.</p>
+          <p>A common one: most section components have a Colour Theme property. Switching it from Light to Dark flips that section's background and text together in a single click, with no manual restyling.</p>
+          <p>Other custom properties let you select a CSS class for a specific use case, such as changing a border radius or max width. To see all the possible classes for each use case, check the styleguide.</p>
+          <p>Try the properties to see what each one changes. Not sure which class to use? Ask your AI agent what would work here, or check your Styleguide page to see the main classes and what each one does. If an override has no visible effect, clear it rather than leaving it in place: typing something like dark or 10 into a Class property does nothing if that option doesn't exist. Click the property's blue label to reset it to its default.</p>
+
+          <h3>Component Slots</h3>
+          <p>Some components let you place other components inside them for extra flexibility, like putting a set of cards into a section. To do this, drag a component from the sidebar onto the canvas and rearrange as needed, or copy and paste an existing component to create more.</p>
+          <p>Webflow will let you put any component inside a slot, but not all slots suit all components. For example, sections should not go inside other sections. To make this clear, components are divided in the sidebar by their role.</p>
+          <p>If a component is meant to hold a specific other component, the slot is named accordingly. A Tabs component is built to hold Tab Links, so it has a slot named Tab Links.</p>
+
+          <h3>The Two Main Component Setups</h3>
+          <h4>Closed Components</h4>
+          <p>Closed components are used where a component should be the same everywhere it appears on your site. When it's updated, every instance across the site picks up the change. Your navbar and footer are examples.</p>
+          <h4>Open Components</h4>
+          <p>Open components are how you build sections from scratch, combining several layers of components into a custom section with unique content.</p>
+          <p>Open components allow more customised layouts when you need a unique section or set of content. They take a bit more knowledge of how sections are structured, and a change to one won't flow across the site the way a closed component's will.</p>
+          <p>When building sections with open components, use the following structure as a general guide and customise from there.</p>
+          <details class="mini">
+            <summary>Simple Content Section structure</summary>
+            <div class="mini-body">
+              <ul class="tree">
+                <li>Section
+                  <ul>
+                    <li>Layout
+                      <ul>
+                        <li>Column 1 Slot
+                          <ul>
+                            <li>Eyebrow</li>
+                            <li>Heading</li>
+                            <li>Paragraph</li>
+                            <li>Button Wrapper
+                              <ul><li>Button</li></ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>Column 2 Slot
+                          <ul>
+                            <li>Visual Image or Visual Video</li>
+                            <li>Visual Overlay <span class="opt">(optional)</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <h3>Component Naming Conventions</h3>
+          <p>Components have different types of names based on how they are used, and they are grouped by function in the component panel. The most common keywords are explained below.</p>
+          <ul>
+            <li><strong>Section.</strong> Prebuilt sections you can drop onto a page, with specific style controls. They help you quickly fill out new pages with prebuilt responsive designs.</li>
+            <li><strong>Layout.</strong> More specific layouts than the default Grid component, built to be reusable inside other open components.</li>
+            <li><strong>Card.</strong> Elements used inside a component slot, giving you flexibility over how much content sits inside each component.</li>
+            <li><strong>Icon.</strong> Icon elements. They can be dropped into icon cards or list items.</li>
+            <li><strong>Form.</strong> Any element related to a form. Use the Form component and drop fields into it to create a custom form.</li>
+            <li><strong>CMS.</strong> Collection lists turned into components so they can be used inside other components, such as sliders, tabs, or open sections.</li>
+          </ul>
+
+          <h3>Editing a Main Component</h3>
+          <p>To make the same change across all instances of a component, you need to edit the main component. You can do this from any component instance by:</p>
+          <ul>
+            <li>Double-clicking the component instance</li>
+            <li>Right-clicking the instance and choosing Edit component</li>
+            <li>Selecting the instance and clicking the pencil icon in the label</li>
+            <li>Selecting the instance and clicking Edit component in the Style, Element settings, or Interactions panels</li>
+            <li>Selecting the instance and pressing Enter</li>
+          </ul>
+          <p>When you do this, all other elements on the page get a dark overlay, showing you are updating the main component and that any change will affect every instance.</p>
+          <div class="callout care">
+            <span class="label">Take care</span>
+            <p>Editing a main component changes every copy of it across your site, so take care. Most changes only need the component's properties. Main components can only be edited in Design mode, so staying in Build mode stops it happening by accident. If you're unsure, email us at <a href="mailto:support@224industries.com.au">support@224industries.com.au</a>.</p>
+          </div>
+          <div class="callout role">
+            <span class="label">Marketer role</span>
+            <p>Editing main components is locked off entirely, another reason this is rarely something you'll need to think about.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 2. Collections -->
+      <details class="toggle" id="collections">
+        <summary>2. Collections <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Collections are the Webflow CMS. They let you manage dynamic, repeatable content like blog posts, case studies, team members, or job listings, so you can add and update content without rebuilding pages every time.</p>
+          <p>Each collection has a set of fields (like title, slug, body, image, date) that define the structure of every item inside it. When you add a new item, it slots into that structure and appears on your site wherever the collection is referenced.</p>
+          <p>Day to day, you'll use the Webflow Builder or the CMS panel in the Designer to add new items, edit existing ones, or archive content you no longer need.</p>
+          <p>The most common day-to-day example is publishing a blog post. You'd open the Blog collection, create a new item, fill in the fields (title, body, featured image, author, publish date), preview how it looks, then publish. The post automatically appears anywhere that collection is referenced on your site, like your blog index and any related-posts sections.</p>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Walk me through adding a new post to the Blog collection, field by field.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="callout">
+            <p>Adding and editing items inside a collection is yours to run, in both Designer and Marketer roles. Changing a collection's structure, like adding fields or creating a new collection, is a system change, so take care and email us if you're unsure.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 3. Utility Classes -->
+      <details class="toggle" id="utility-classes">
+        <summary>3. Utility Classes <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Utility classes are pre-built styling controls in your system, all prefixed with <code>u-</code> (for example <code>u-gap-4</code>). Components use them behind the scenes to keep spacing, sizing, and layout consistent. You'll mostly encounter them rather than create them. It's useful to recognise what they are so the system makes sense, but adding or changing classes yourself is rarely needed and easy to get wrong.</p>
+          <p>All the utility styles on your site can be viewed on the styleguide page. If you're not sure what a class does, ask your AI agent.</p>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>What does the u-gap-4 class do on this site, and what other gap options do I have?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <p>To make utility classes easier to use, we recommend the Lumos <a href="https://chromewebstore.google.com/detail/lumos-extension-for-webfl/hclnndibcedglllpoaajibpnoacaolpj?hl=en" target="_blank" rel="noopener">Chrome extension</a>, which makes component class selectors easier to read.</p>
+
+          <h3>How to Use Utility Classes in a Component</h3>
+          <p>When a component has a property for utility classes, it includes the word Class, sometimes with a descriptor for a more specific role like Grid Classes. To update the utility classes, click into the property and type <code>u-</code> to see a list of classes you can add.</p>
+          <p>Context matters here. You don't want to add a gap class to a typography element. Pay attention to the kind of element you're working with and keep the default classes in mind. For example, if a layout has a <code>u-gap-4</code> utility, click into it and backspace until it reads <code>u-gap-</code> to see your other gap options.</p>
+          <div class="callout care">
+            <span class="label">Take care</span>
+            <p>If you add a utility class and see no effect, remove it. You don't want to apply styles you don't understand. Only add classes that start with <code>u-</code> inside a component property.</p>
+          </div>
+          <div class="callout role">
+            <span class="label">Marketer role</span>
+            <p>Editing classes is locked. If a layout needs a styling change beyond what a component's properties allow, that's a good moment to email support.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 4. Variables -->
+      <details class="toggle" id="variables">
+        <summary>4. Variables <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Variables are the foundation your whole system is built on, the master settings for things like colours, font styles, and your site's max width. Because they control your site globally, this is the one part of the system you'll rarely, if ever, need to touch.</p>
+          <p>If you go through a rebrand or need a minor design change (like updating your h6 font style from medium to bold), this is where it's made.</p>
+          <p>Open the Variables panel in Webflow to see how yours are set up.</p>
+          <div class="callout role">
+            <span class="label">Marketer role</span>
+            <p>Variables can only be changed in the Designer role, and even then it's almost always done as part of a rebrand or design update.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- Your First Step -->
+    <section id="your-first-step">
+      <h2>Your First Step: Build a simple section</h2>
+      <p>The best way to get comfortable with the system is to build something small. This walkthrough adds a simple section with a heading, a paragraph and a button, then edits the content. It's the core skill everything else builds on.</p>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>On the About page, help me add a section with a heading, a paragraph and a button. Which component should I use, and how do I set it up?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <ol class="steps">
+        <li><strong>Open the page you want to add to.</strong> Pick a page where a new section makes sense, or duplicate an existing page to practise safely.</li>
+        <li><strong>Add a section component.</strong> From the components panel, find a simple content section and drag it onto the page where you want it. It'll drop in fully styled and responsive.</li>
+        <li><strong>Edit the heading.</strong> Select the heading text on the canvas and type your own. Notice it keeps its style automatically, as you're changing the words, not the design.</li>
+        <li><strong>Edit the paragraph.</strong> Do the same with the body text. Click in, and replace the placeholder copy with your own.</li>
+        <li><strong>Update the button.</strong> Select the button to change its label, then set where it links to in the settings panel.</li>
+        <li><strong>Adjust the section properties (optional).</strong> With the section selected, open its properties panel. Try switching the Colour Theme or padding to see how the controls work. Clear any property that has no effect rather than leaving a guess in place.</li>
+        <li><strong>Preview and publish.</strong> Preview to see your section live in context. When you're happy, publish to push it to your live site.</li>
+      </ol>
+      <p>For more layouts, browse your Examples page. If you want something the existing components don't cover, we'd recommend reaching out to us at <a href="mailto:support@224industries.com.au">support@224industries.com.au</a>.</p>
+      <div class="callout role">
+        <span class="label">Marketer role</span>
+        <p>Every step above is available to you, as building pages from existing components is core to that role. The only thing you won't do here is edit the components themselves, which you don't need to for this.</p>
+      </div>
+    </section>
+
+    <!-- Keeping Images Light -->
+    <section id="keeping-images-light">
+      <h2>Keeping Images Light</h2>
+      <p>Large images are the main thing that slows a site down. Webflow can compress them for you in two places: the Assets panel for images on your regular pages, and the Collections panel for images inside CMS items like blog posts.</p>
+      <p>Compressing converts JPG and PNG files to WebP, a much smaller format that looks the same on screen. Webflow will ask you to choose between WebP and AVIF. Choose WebP, as social platforms don't have full AVIF support, so an AVIF image won't show as the preview when someone shares your page.</p>
+
+      <h3>Compressing images in the Assets panel</h3>
+      <ol class="steps">
+        <li><strong>Open the Assets panel</strong> and click the expand icon to see the full view.</li>
+        <li><strong>Select the images you want to compress,</strong> or use Select all.</li>
+        <li><strong>Choose WebP, then click Compress.</strong> Each image is swapped in place, so everywhere it's used on your site updates automatically and nothing needs re-linking.</li>
+      </ol>
+
+      <h3>Compressing images in your collections</h3>
+      <ol class="steps">
+        <li><strong>Open the Collections panel</strong> and click the more options icon.</li>
+        <li><strong>Select Compress assets.</strong></li>
+        <li><strong>Choose WebP, then click Compress.</strong> This runs across the images in your collections in one action.</li>
+      </ol>
+      <p>It's worth running whenever you've added a batch of new content.</p>
+
+      <h3>Good to know</h3>
+      <ul>
+        <li><strong>Take a backup first.</strong> The compressed file replaces the original and can't be converted back. Webflow keeps a backup automatically, but downloading the originals from the Assets panel before you compress means you'll always have them.</li>
+        <li><strong>Only JPG and PNG files are compressed.</strong> GIFs, SVGs and images that are already WebP are left as they are, and so is any image Webflow can't make smaller.</li>
+      </ul>
+      <div class="callout">
+        <p>Compression won't resize. If an image displays at 800px wide, there's no need to upload it at 3000px. Save it at around twice the display width, so 1600px here, which keeps it sharp on high-resolution screens. Upload photos as JPG and keep PNG for images that need a transparent background. Both come out as WebP once compressed.</p>
+      </div>
+    </section>
+
+    <!-- Using HubSpot Forms -->
+    <section id="using-hubspot-forms">
+      <h2>Using HubSpot Forms</h2>
+      <p>If your site uses HubSpot forms, this section is for you. If it doesn't, skip it.</p>
+      <p>HubSpot forms usually take a second or so to appear after the page loads, which leaves a gap and can make the page jump. Your site has a Hubspot Form Loader component that holds the form's space and fades the form in once it's ready. It doesn't change your form or your HubSpot setup.</p>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>On the Contact page, help me add a HubSpot form.</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Where do I find the Form ID for my HubSpot form?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+
+      <details class="toggle" id="hubspot-by-hand">
+        <summary>Setting it up by hand <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <h3>Adding it to a page</h3>
+          <p>Each HubSpot form on a page gets one loader.</p>
+          <ol class="steps">
+            <li><strong>Open the page with your HubSpot form.</strong></li>
+            <li><strong>Add the component.</strong> In the components panel, find Hubspot Form Loader in the Form group and drop it immediately above your Hubspot Form Embed component. It's invisible, so it won't change your layout. Keeping the two together makes it easy to see which loader belongs to which form.</li>
+            <li><strong>Fill in the Form ID.</strong> Select the component and paste your Form ID into the Form ID property. See below for where to find it.</li>
+            <li><strong>Fill in the Height.</strong> Enter the form's height as a number only, like 423. No px on the end.</li>
+            <li><strong>Preview and publish.</strong></li>
+          </ol>
+          <p>If a page has two forms, add two loaders, one immediately above each form, and give each its own Form ID and Height.</p>
+
+          <h3>Where to find your Form ID</h3>
+          <ol class="steps">
+            <li>In HubSpot, go to Marketing &gt; Forms.</li>
+            <li>Hover over your form and click Edit.</li>
+            <li>In the top right, click Review and update, then Update, then Get embed code.</li>
+            <li>In the embed code, look for <code>data-form-id="..."</code>. The Form ID is the long string of letters, numbers and hyphens inside the quotes. It looks like this: <code>d32746b4-4dc8-4c86-9568-321525c26743</code></li>
+          </ol>
+          <p>Copy only the ID, without the quotes. HubSpot's menus change from time to time, so if those steps don't match what you see, their guide to <a href="https://knowledge.hubspot.com/forms/set-up-and-style-your-form-on-an-external-site" target="_blank" rel="noopener">embedding a form</a> should have the latest.</p>
+
+          <h3>Finding the Height</h3>
+          <p>The height is how tall your form is once it has loaded, in pixels. The easiest way to get it is to ask us. Send the page link to <a href="mailto:support@224industries.com.au">support@224industries.com.au</a> and we'll send the number back.</p>
+          <p>In the meantime you can leave Height at its default of 420. That suits a typical form with around five fields and a button. If your form is much shorter or longer than that, the page may still move a little when the form appears, so it's worth updating the number.</p>
+
+          <h3>Which HubSpot forms this works with</h3>
+          <p>HubSpot has two form editors, and the loader is built for forms made in the newer one. You can usually tell from the embed code:</p>
+          <ul>
+            <li>A newer form's embed code includes <code>hs-form-frame</code>. The loader works with these.</li>
+            <li>An older (legacy) form's embed code includes <code>hbspt.forms.create</code>. The loader won't do anything for these. The form still works as normal, it just loads the way it used to.</li>
+          </ul>
+          <p>If you're not sure which one you have, email the embed code to support and they'll check.</p>
+
+          <h3>Good to know</h3>
+          <ul>
+            <li><strong>If you forget the loader,</strong> your form still works and submissions still come through. You'll just see the gap and the small jump while it loads.</li>
+            <li><strong>If the Form ID is blank or has a typo,</strong> your page still works. The loader falls back to the default height of 420, so double-check the ID if the placeholder looks the wrong size.</li>
+            <li><strong>The placeholder is a general shape,</strong> a few grey bars for fields and a button. It's not an exact copy of your form. If your form looks very different and you'd like a closer match, email support and it can be adjusted.</li>
+            <li><strong>If HubSpot doesn't load at all,</strong> for example when a visitor's browser blocks it, the placeholder is designed to clear itself after about 12 seconds so there's no empty grey block left behind.</li>
+          </ul>
+          <div class="callout">
+            <p>Filling in the Form ID and Height is yours to run. Changing the code inside the loader is a system change, so email us if you're unsure.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <div class="support">
+      <p>Have a question?</p>
+      <a class="btn-primary" href="mailto:support@224industries.com.au">Email support@224industries.com.au</a>
+    </div>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <a href="https://224industries.com.au" aria-label="224 Industries home"><img src="assets/logo-224Industries-dark.svg" alt="224 Industries" width="113" height="20"></a>
+  <span class="small"><a href="https://224industries.com.au">224industries.com.au</a></span>
+</footer>
+
+<script>
+  // Copy buttons on prompt blocks
+  document.querySelectorAll('.prompt').forEach(function (block) {
+    var btn = block.querySelector('.copy-btn');
+    var text = block.querySelector('q').textContent.trim();
+    btn.setAttribute('aria-label', 'Copy prompt');
+    btn.addEventListener('click', function () {
+      var done = function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+      } else { fallback(text); done(); }
+    });
+  });
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'absolute'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // Open a collapsed section when a contents link or URL hash points at it
+  function openTarget(hash) {
+    if (!hash) return;
+    var el = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!el) return;
+    var d = el.tagName === 'DETAILS' ? el : el.closest('details.toggle');
+    if (d && !d.open) d.open = true;
+    var mobile = document.querySelector('.toc-mobile');
+    if (mobile && mobile.open && mobile.contains(document.activeElement)) mobile.open = false;
+  }
+  window.addEventListener('hashchange', function () { openTarget(location.hash); });
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function () { openTarget(a.getAttribute('href')); });
+  });
+  openTarget(location.hash);
+
+  // Highlight the current section in the contents
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  if ('IntersectionObserver' in window) {
+    var current = null;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) current = e.target.id; });
+      if (!current) return;
+      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+    }, { rootMargin: '0px 0px -70% 0px' });
+    targets.forEach(function (t) { if (t) io.observe(t); });
+  }
+</script>
+</body>
+</html>
