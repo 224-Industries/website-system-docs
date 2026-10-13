@@ -100,7 +100,8 @@
   /* Hero */
   .hero { padding: var(--section-space-small) var(--site-margin) var(--space-7); max-width: 1200px; margin: 0 auto; }
   .hero .callout:last-child { margin-bottom: 0; }
-  .hero-inner { max-width: 720px; }
+  .hero { display: grid; grid-template-columns: 220px minmax(0, 720px); gap: var(--space-8); }
+  .hero-inner { grid-column: 2; max-width: 720px; }
   .eyebrow { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500; color: var(--dark-700); margin-bottom: var(--space-3); }
   .hero h1 { margin-bottom: var(--space-5); }
   .hero .lead { margin-bottom: var(--space-5); }
@@ -223,6 +224,8 @@
   @media (max-width: 900px) {
     :root { --site-margin: 16px; }
     .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .hero { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .hero-inner { grid-column: 1; }
     .toc { display: none; }
     .toc-mobile { display: block; margin-bottom: var(--space-7); border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main); }
     .toc-mobile > summary { cursor: pointer; padding: var(--space-3) 20px; font-weight: 500; }
