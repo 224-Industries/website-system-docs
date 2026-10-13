@@ -1,4 +1,4 @@
-# 224 Go To Market Website System Docs
+# 224 Website System Docs
 
 The client guide to the 224 GTM Website System: how your Webflow site is put together, what's yours to change, and how to ask your AI agent for help.
 
