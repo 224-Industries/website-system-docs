@@ -98,17 +98,15 @@
   .header-link { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500; }
 
   /* Hero */
-  .hero { padding: var(--section-space-small) var(--site-margin) var(--space-7); max-width: 1200px; margin: 0 auto; }
-  .hero .callout:last-child { margin-bottom: 0; }
-  .hero { display: grid; grid-template-columns: 220px minmax(0, 720px); gap: var(--space-8); }
-  .hero-inner { grid-column: 2; max-width: 720px; }
   .eyebrow { font-size: 14px; line-height: 1.5; letter-spacing: -0.02em; font-weight: 500; color: var(--dark-700); margin-bottom: var(--space-3); }
+  .hero { margin-bottom: var(--space-7); }
+  .hero .callout:last-child { margin-bottom: 0; }
   .hero h1 { margin-bottom: var(--space-5); }
   .hero .lead { margin-bottom: var(--space-5); }
 
   /* Layout */
   .layout {
-    max-width: 1200px; margin: 0 auto; padding: 0 var(--site-margin) var(--section-space-small);
+    max-width: 1200px; margin: 0 auto; padding: var(--section-space-small) var(--site-margin);
     display: grid; grid-template-columns: 220px minmax(0, 720px); gap: var(--space-8);
   }
   .toc { position: sticky; top: var(--space-5); align-self: start; max-height: calc(100vh - 64px); overflow: auto; }
@@ -224,8 +222,6 @@
   @media (max-width: 900px) {
     :root { --site-margin: 16px; }
     .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
-    .hero { grid-template-columns: minmax(0, 1fr); gap: 0; }
-    .hero-inner { grid-column: 1; }
     .toc { display: none; }
     .toc-mobile { display: block; margin-bottom: var(--space-7); border: var(--hair) solid var(--theme-border); border-radius: var(--radius-main); }
     .toc-mobile > summary { cursor: pointer; padding: var(--space-3) 20px; font-weight: 500; }
@@ -233,7 +229,8 @@
     .toc-mobile ul ul { padding: 0 0 0 var(--space-3); }
     .toc-mobile li { margin: 0; }
     .toc-mobile a { display: block; padding: 6px 0; text-decoration: none; }
-    .hero { padding-top: var(--space-7); padding-bottom: var(--space-5); }
+    .layout { padding-top: var(--space-7); }
+    .hero { margin-bottom: var(--space-5); }
     h1 { font-size: 36px; }
     h2 { font-size: 30px; line-height: 1.1; }
     details.toggle > summary { font-size: 22px; line-height: 1.3; }
@@ -254,18 +251,6 @@
   </a>
   <a class="header-link" href="mailto:support@224industries.com.au"><span class="hl-long">support@224industries.com.au</span><span class="hl-short">Email support</span></a>
 </div></header>
-
-<div class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">Client guide</div>
-    <h1>224 Go To Market Website System Docs</h1>
-    <p class="lead">Your site runs on the 224 GTM Website System, built using the Lumos framework. This guide shows you how to use it.</p>
-    <div class="callout">
-      <span class="label">Prefer to ask?</span>
-      <p>Your site comes with 224 Agent Instructions installed, so an AI agent connected to your site can walk you through anything in this guide, on your own site. <a href="#asking-your-ai-agent">See Asking Your AI Agent below</a>.</p>
-    </div>
-  </div>
-</div>
 
 <div class="layout">
   <nav class="toc" aria-label="Contents">
@@ -288,6 +273,16 @@
   </nav>
 
   <main>
+    <div class="hero">
+    <div class="eyebrow">Client guide</div>
+    <h1>224 Go To Market Website System Docs</h1>
+    <p class="lead">Your site runs on the 224 GTM Website System, built using the Lumos framework. This guide shows you how to use it.</p>
+    <div class="callout">
+      <span class="label">Prefer to ask?</span>
+      <p>Your site comes with 224 Agent Instructions installed, so an AI agent connected to your site can walk you through anything in this guide, on your own site. <a href="#asking-your-ai-agent">See Asking Your AI Agent below</a>.</p>
+    </div>
+    </div>
+
     <details class="toc-mobile">
       <summary>Contents</summary>
       <ul>
