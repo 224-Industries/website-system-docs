@@ -244,25 +244,26 @@
   .split li { margin-bottom: 12px; }
   .split li:last-child { margin-bottom: 0; }
 
-  /* Collapsible sections */
-  details.toggle { border-top: var(--hair) solid var(--border); }
-  details.toggle:last-of-type { border-bottom: var(--hair) solid var(--border); }
-  details.toggle > summary {
-    list-style: none; cursor: pointer; padding: 20px 0;
+  /* Accordions: the same on both pages (benchmark: the Webflow Skills FAQ) */
+  .faq-item { border-bottom: var(--hair) solid var(--border); }
+  .faq-item > summary {
     display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
-    font-size: 1.25rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; color: var(--text);
-    transition: color .15s;
+    padding: 20px 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.5; color: var(--text);
+    cursor: pointer; list-style: none; transition: color .15s;
   }
-  details.toggle > summary:hover { color: var(--text-body); }
-  details.toggle > summary::-webkit-details-marker { display: none; }
-  details.toggle > summary .chev { flex: none; width: 20px; height: 20px; transition: transform .2s; }
-  details.toggle[open] > summary .chev { transform: rotate(180deg); }
-  details.toggle > .toggle-body { padding-bottom: var(--space-6); }
-  details.toggle > .toggle-body > h3:first-child { margin-top: var(--space-3); }
-
-  details.mini { margin: var(--space-5) 0; border: var(--hair) solid var(--border); border-radius: var(--radius-medium); }
-  details.mini > summary { cursor: pointer; padding: var(--space-3) 20px; font-weight: 500; color: var(--text); }
-  details.mini > .mini-body { padding: 0 20px 20px; }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item > summary::marker { content: ''; }
+  .faq-item > summary:hover { color: var(--text-body); }
+  .faq-icon { width: 16px; height: 16px; flex-shrink: 0; transition: transform .25s ease; }
+  .faq-item.is-open > summary .faq-icon { transform: rotate(180deg); }
+  .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+  .faq-item[open] > .faq-answer { grid-template-rows: 1fr; }
+  .faq-answer-inner { overflow: hidden; }
+  .faq-item:not(.faq-item + .faq-item) { border-top: var(--hair) solid var(--border); }
+  .toggle > .faq-answer > .faq-answer-inner { padding-bottom: var(--space-5); }
+  .toggle > .faq-answer > .faq-answer-inner > h3:first-child { margin-top: var(--gap-tight); }
+  .mini { margin: var(--space-5) 0; }
+  .mini > .faq-answer > .faq-answer-inner { padding-bottom: 20px; }
 
   /* Component tree */
   .tree, .tree ul { list-style: none; margin: 0; padding: 0; }
@@ -281,7 +282,6 @@
   .support p { margin: 0; font-size: 1.125rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.02em; color: var(--text); }
 
   @media (max-width: 900px) {
-    details.toggle > summary { font-size: 1.125rem; }
     .split { grid-template-columns: 1fr; }
     .split > div + div { border-left: 0; border-top: var(--hair) solid var(--border); }
     .prompt { grid-template-columns: 1fr; }
@@ -477,9 +477,9 @@
       </div>
 
       <!-- 1. Components -->
-      <details class="toggle" id="components">
-        <summary>1. Components <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="components">
+        <summary>1. Components <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Components are the core building blocks of your site. With them you can build entirely new pages, or go back into existing ones to reorder sections, change content, and apply design controls like a section's colour theme or padding.</p>
           <p>Components keep your site consistent. Each one is built once and reused, so a change to the main component shows up everywhere it's used. The system uses components for nearly everything, from headings to the navbar and footer.</p>
           <p>Every section is built from a series of components. You start with basic elements like typography, buttons, and image components, wrap those in layout components, and finish with a section component. Depending on how your site was built, you may primarily use Open or Closed components. Both are explained below.</p>
@@ -525,9 +525,9 @@
           <p>Open components are how you build sections from scratch, combining several layers of components into a custom section with unique content.</p>
           <p>Open components allow more customised layouts when you need a unique section or set of content. They take a bit more knowledge of how sections are structured, and a change to one won't flow across the site the way a closed component's will.</p>
           <p>When building sections with open components, use the following structure as a general guide and customise from there.</p>
-          <details class="mini">
-            <summary>Simple Content Section structure</summary>
-            <div class="mini-body">
+          <details class="faq-item mini">
+            <summary>Simple Content Section structure <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+            <div class="faq-answer"><div class="faq-answer-inner">
               <ul class="tree">
                 <li>Section
                   <ul>
@@ -554,7 +554,7 @@
                   </ul>
                 </li>
               </ul>
-            </div>
+            </div></div>
           </details>
 
           <h3>Component Naming Conventions</h3>
@@ -586,13 +586,13 @@
             <span class="label">Marketer role</span>
             <p>Editing main components is locked off entirely, another reason this is rarely something you'll need to think about.</p>
           </div>
-        </div>
+        </div></div>
       </details>
 
       <!-- 2. Collections -->
-      <details class="toggle" id="collections">
-        <summary>2. Collections <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="collections">
+        <summary>2. Collections <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Collections are the Webflow CMS. They let you manage dynamic, repeatable content like blog posts, case studies, team members, or job listings, so you can add and update content without rebuilding pages every time.</p>
           <p>Each collection has a set of fields (like title, slug, body, image, date) that define the structure of every item inside it. When you add a new item, it slots into that structure and appears on your site wherever the collection is referenced.</p>
           <p>Day to day, you'll use the Webflow Builder or the CMS panel in the Designer to add new items, edit existing ones, or archive content you no longer need.</p>
@@ -605,13 +605,13 @@
           <div class="callout">
             <p>Adding and editing items inside a collection is yours to run, in both Designer and Marketer roles. Changing a collection's structure, like adding fields or creating a new collection, is a system change, so take care and email us if you're unsure.</p>
           </div>
-        </div>
+        </div></div>
       </details>
 
       <!-- 3. Utility Classes -->
-      <details class="toggle" id="utility-classes">
-        <summary>3. Utility Classes <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="utility-classes">
+        <summary>3. Utility Classes <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Utility classes are pre-built styling controls in your system, all prefixed with <code>u-</code> (for example <code>u-gap-4</code>). Components use them behind the scenes to keep spacing, sizing, and layout consistent. You'll mostly encounter them rather than create them. It's useful to recognise what they are so the system makes sense, but adding or changing classes yourself is rarely needed and easy to get wrong.</p>
           <p>All the utility styles on your site can be viewed on the styleguide page. If you're not sure what a class does, ask your AI agent.</p>
           <div class="prompt">
@@ -632,13 +632,13 @@
             <span class="label">Marketer role</span>
             <p>Editing classes is locked. If a layout needs a styling change beyond what a component's properties allow, that's a good moment to email support.</p>
           </div>
-        </div>
+        </div></div>
       </details>
 
       <!-- 4. Variables -->
-      <details class="toggle" id="variables">
-        <summary>4. Variables <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="variables">
+        <summary>4. Variables <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Variables are the foundation your whole system is built on, the master settings for things like colours, font styles, and your site's max width. Because they control your site globally, this is the one part of the system you'll rarely, if ever, need to touch.</p>
           <p>If you go through a rebrand or need a minor design change (like updating your h6 font style from medium to bold), this is where it's made.</p>
           <p>Open the Variables panel in Webflow to see how yours are set up.</p>
@@ -646,7 +646,7 @@
             <span class="label">Marketer role</span>
             <p>Variables can only be changed in the Designer role, and even then it's almost always done as part of a rebrand or design update.</p>
           </div>
-        </div>
+        </div></div>
       </details>
     </section>
 
@@ -722,9 +722,9 @@
         <button class="copy-btn" type="button">Copy</button>
       </div>
 
-      <details class="toggle" id="hubspot-by-hand">
-        <summary>Setting it up by hand <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="hubspot-by-hand">
+        <summary>Setting it up by hand <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <h3>Adding it to a page</h3>
           <p>Each HubSpot form on a page gets one loader.</p>
           <ol class="steps">
@@ -767,7 +767,7 @@
           <div class="callout">
             <p>Filling in the Form ID and Height is yours to run. Changing the code inside the loader is a system change, so email us if you're unsure.</p>
           </div>
-        </div>
+        </div></div>
       </details>
     </section>
 
@@ -783,9 +783,9 @@
         <li><strong>Check your agent is connected to your site</strong> through Webflow's MCP server, the same connection your agent instructions use.</li>
       </ol>
 
-      <details class="toggle" id="webflow-insights">
-        <summary>Webflow Insights <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="webflow-insights">
+        <summary>Webflow Insights <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Webflow keeps its own data on your site: visits and goals in Analyze, test results in Optimize, and how AI tools read your site in AEO Analytics. Your Webflow plan may include one, two or all three. This skill lets your agent read whichever ones your site has and explain them in plain words.</p>
           <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill">Download webflow-insights.skill</a></p>
 
@@ -824,12 +824,12 @@
             <li><strong>Its numbers won't match Google Analytics exactly.</strong> The two tools count visits differently, so compare each one with itself over time.</li>
             <li><strong>It can only see what your Webflow account can see.</strong> If a teammate gets a different answer, check you both have the same access.</li>
           </ul>
-        </div>
+        </div></div>
       </details>
 
-      <details class="toggle" id="webflow-schema">
-        <summary>Webflow Schema <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="webflow-schema">
+        <summary>Webflow Schema <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>Schema is hidden code on a page that tells Google and AI tools what the page is: an article, a set of FAQs, your business. It's what lets search results show extra detail, like FAQ answers or a published date. This skill helps your agent check the schema each page carries, find out why details aren't showing in search, and suggest fixes.</p>
           <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-schema.skill">Download webflow-schema.skill</a></p>
 
@@ -852,12 +852,12 @@
             <li><strong>Changes stay as drafts</strong> until someone on your team publishes them.</li>
             <li><strong>It won't make up details</strong> like ratings, dates or authors. If the information isn't on your site, it leaves it out.</li>
           </ul>
-        </div>
+        </div></div>
       </details>
 
-      <details class="toggle" id="webflow-llms-txt">
-        <summary>Webflow llms.txt <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="toggle-body">
+      <details class="faq-item toggle" id="webflow-llms-txt">
+        <summary>Webflow llms.txt <svg class="faq-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></summary>
+        <div class="faq-answer"><div class="faq-answer-inner">
           <p>An llms.txt file is a plain-text map of your site that AI tools read to work out what lives where. Webflow serves it from a file you upload, so it doesn't update itself when you add pages or posts. This skill reads your site as it is today and writes a fresh file, plus a short list of what changed since the last one.</p>
           <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill">Download webflow-llms-txt.skill</a></p>
 
@@ -879,7 +879,7 @@
             <li><strong>You upload the file yourself</strong> in Webflow, under Site settings, then SEO, then LLMs.txt.</li>
             <li><strong>Run it once a month,</strong> or after you've published a batch of new pages or posts. Keep the last file so the next run can show what changed.</li>
           </ul>
-        </div>
+        </div></div>
       </details>
     </section>
 
@@ -949,13 +949,46 @@
     document.body.removeChild(ta);
   }
 
+  // Accordions: animate open and close (same as the Webflow Skills FAQ)
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var summary = item.querySelector(':scope > summary');
+    var answer = item.querySelector(':scope > .faq-answer');
+    summary.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (item.open) {
+        item.classList.remove('is-open');
+        answer.style.gridTemplateRows = '0fr';
+        answer.addEventListener('transitionend', function once(ev) {
+          if (ev.target !== answer) return;
+          item.open = false;
+          answer.removeEventListener('transitionend', once);
+          answer.style.gridTemplateRows = '';
+        });
+      } else {
+        item.open = true;
+        item.classList.add('is-open');
+        answer.style.gridTemplateRows = '0fr';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            answer.style.gridTemplateRows = '1fr';
+            answer.addEventListener('transitionend', function once(ev) {
+              if (ev.target !== answer) return;
+              answer.removeEventListener('transitionend', once);
+              answer.style.gridTemplateRows = '';
+            });
+          });
+        });
+      }
+    });
+  });
+
   // Open a collapsed section when a contents link or URL hash points at it
   function openTarget(hash) {
     if (!hash) return;
     var el = document.getElementById(decodeURIComponent(hash.slice(1)));
     if (!el) return;
     var d = el.tagName === 'DETAILS' ? el : el.closest('details.toggle');
-    if (d && !d.open) d.open = true;
+    if (d && !d.open) { d.open = true; d.classList.add('is-open'); }
     var mobile = document.querySelector('.toc-mobile');
     if (mobile && mobile.open && mobile.contains(document.activeElement)) mobile.open = false;
   }
