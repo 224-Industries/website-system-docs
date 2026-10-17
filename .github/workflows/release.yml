@@ -1,0 +1,46 @@
+name: Release
+
+# Pushing a branch named release/<version>, for example release/v2.1,
+# tags that commit with the version and publishes it as a GitHub release,
+# then deletes the branch. A version containing "-" is marked as a
+# pre-release. A version name can only be published once.
+
+on:
+  push:
+    branches:
+      - "release/**"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          TAG="${BRANCH#release/}"
+          FLAGS=""
+          case "$TAG" in
+            *-*) FLAGS="--prerelease" ;;
+          esac
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "Release $TAG already exists. Publish a new version instead."
+            exit 1
+          fi
+          gh release create "$TAG" \
+            --repo "${{ github.repository }}" \
+            --target "${{ github.sha }}" \
+            --title "$TAG" \
+            --notes "$TAG" \
+            $FLAGS
+
+      - name: Delete the release branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$BRANCH"
