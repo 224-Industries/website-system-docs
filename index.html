@@ -271,6 +271,14 @@
       <li><a href="#your-first-step">Your First Step: Build a simple section</a></li>
       <li><a href="#keeping-images-light">Keeping Images Light</a></li>
       <li><a href="#using-hubspot-forms">Using HubSpot Forms</a></li>
+      <li><a href="#extras">Extras</a>
+        <ul>
+          <li><a href="#webflow-insights">Webflow Insights</a></li>
+          <li><a href="#webflow-schema">Webflow Schema</a></li>
+          <li><a href="#webflow-llms-txt">Webflow llms.txt</a></li>
+        </ul>
+      </li>
+      <li><a href="#downloads">Downloads</a></li>
     </ul>
   </nav>
 
@@ -301,6 +309,14 @@
         <li><a href="#your-first-step">Your First Step: Build a simple section</a></li>
         <li><a href="#keeping-images-light">Keeping Images Light</a></li>
         <li><a href="#using-hubspot-forms">Using HubSpot Forms</a></li>
+        <li><a href="#extras">Extras</a>
+          <ul>
+            <li><a href="#webflow-insights">Webflow Insights</a></li>
+            <li><a href="#webflow-schema">Webflow Schema</a></li>
+            <li><a href="#webflow-llms-txt">Webflow llms.txt</a></li>
+          </ul>
+        </li>
+        <li><a href="#downloads">Downloads</a></li>
       </ul>
     </details>
 
@@ -707,6 +723,135 @@
           </div>
         </div>
       </details>
+    </section>
+
+    <!-- Extras -->
+    <section id="extras">
+      <h2>Extras</h2>
+      <p>We've published a few free skills for Webflow sites. A skill teaches your AI agent how to do one job well, and works alongside your agent instructions. Each one below has a short guide and prompts to try.</p>
+
+      <h3>Adding a skill to your agent</h3>
+      <ol class="steps">
+        <li><strong>Download the skill file</strong> from its section below, or from <a href="#downloads">Downloads</a>.</li>
+        <li><strong>Add it to your AI agent.</strong> In Claude, go to Settings, then Capabilities, then Skills, and upload the file. Other agents have their own place for skills.</li>
+        <li><strong>Check your agent is connected to your site</strong> through Webflow's MCP server, the same connection your agent instructions use.</li>
+      </ol>
+
+      <details class="toggle" id="webflow-insights">
+        <summary>Webflow Insights <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Webflow keeps its own data on your site: visits and goals in Analyze, test results in Optimize, and how AI tools read your site in AEO Analytics. Your Webflow plan may include one, two or all three. This skill lets your agent read whichever ones your site has and explain them in plain words.</p>
+          <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill">Download webflow-insights.skill</a></p>
+
+          <h3>What to ask</h3>
+          <div class="prompt">
+            <span class="label">Start here</span>
+            <q>Use the webflow-insights skill.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <p class="prompt-note">With no question, it gives you a snapshot of the last 28 days and suggests what to ask next. You can reply with one of its suggestions, or just say "the first one".</p>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Run a monthly check-up on our site for last month.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Why did visits drop last week?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Has our homepage test got a winner yet?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Are any visitors arriving from ChatGPT or other AI tools?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+
+          <h3>Good to know</h3>
+          <ul>
+            <li><strong>It only reads your data.</strong> It can't change your site, your tests or your settings.</li>
+            <li><strong>It works with what your plan includes.</strong> If your site doesn't have Optimize or AEO Analytics, it says so in one line and answers from what you do have.</li>
+            <li><strong>Its numbers won't match Google Analytics exactly.</strong> The two tools count visits differently, so compare each one with itself over time.</li>
+            <li><strong>It can only see what your Webflow account can see.</strong> If a teammate gets a different answer, check you both have the same access.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="toggle" id="webflow-schema">
+        <summary>Webflow Schema <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>Schema is hidden code on a page that tells Google and AI tools what the page is: an article, a set of FAQs, your business. It's what lets search results show extra detail, like FAQ answers or a published date. This skill helps your agent check the schema each page carries, find out why details aren't showing in search, and suggest fixes.</p>
+          <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-schema.skill">Download webflow-schema.skill</a></p>
+
+          <h3>What to ask</h3>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Check the schema on our homepage and tell me if anything is wrong.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Why aren't our FAQs showing in Google search results?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Check the schema on three of our blog posts and tell me what's missing.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+
+          <h3>Good to know</h3>
+          <ul>
+            <li><strong>Checking is safe.</strong> Reading and auditing schema doesn't change anything on your site.</li>
+            <li><strong>Adding or changing schema edits your page code, which is a system change.</strong> Make sure you understand what it will affect, and email <a href="mailto:support@224industries.com.au">support@224industries.com.au</a> if you're unsure.</li>
+            <li><strong>Changes stay as drafts</strong> until someone on your team publishes them.</li>
+            <li><strong>It won't make up details</strong> like ratings, dates or authors. If the information isn't on your site, it leaves it out.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="toggle" id="webflow-llms-txt">
+        <summary>Webflow llms.txt <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="toggle-body">
+          <p>An llms.txt file is a plain-text map of your site that AI tools read to work out what lives where. Webflow serves it from a file you upload, so it doesn't update itself when you add pages or posts. This skill reads your site as it is today and writes a fresh file, plus a short list of what changed since the last one.</p>
+          <p><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill">Download webflow-llms-txt.skill</a></p>
+
+          <h3>What to ask</h3>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Write an llms.txt file for our site.</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+          <div class="prompt">
+            <span class="label">Try asking</span>
+            <q>Here's our current llms.txt. What's changed on the site since it was written?</q>
+            <button class="copy-btn" type="button">Copy</button>
+          </div>
+
+          <h3>Good to know</h3>
+          <ul>
+            <li><strong>It only reads your site.</strong> It writes the file for you to check, and doesn't change anything in Webflow.</li>
+            <li><strong>You upload the file yourself</strong> in Webflow, under Site settings, then SEO, then LLMs.txt.</li>
+            <li><strong>Run it once a month,</strong> or after you've published a batch of new pages or posts. Keep the last file so the next run can show what changed.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- Downloads -->
+    <section id="downloads">
+      <h2>Downloads</h2>
+      <ul>
+        <li><strong><a href="https://chromewebstore.google.com/detail/lumos-extension-for-webfl/hclnndibcedglllpoaajibpnoacaolpj">Lumos Extension for Webflow</a></strong> (Chrome). Shortcuts for working with your system in the Designer: it fills in class names, converts pixel values to rem as you type, and wraps variables for you.</li>
+        <li><strong><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-insights.skill">webflow-insights.skill</a></strong>. Reads your site's Analyze, Optimize and AEO data. See <a href="#webflow-insights">Webflow Insights</a>.</li>
+        <li><strong><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-schema.skill">webflow-schema.skill</a></strong>. Checks and fixes the schema on your pages. See <a href="#webflow-schema">Webflow Schema</a>.</li>
+        <li><strong><a href="https://github.com/224-Industries/webflow-skills/releases/latest/download/webflow-llms-txt.skill">webflow-llms-txt.skill</a></strong>. Writes and refreshes your llms.txt file. See <a href="#webflow-llms-txt">Webflow llms.txt</a>.</li>
+      </ul>
+      <p>All our skills are listed on <a href="https://224industries.com.au/webflow-skills">our Webflow Skills page</a>.</p>
     </section>
 
     <div class="support">
