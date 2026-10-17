@@ -45,8 +45,6 @@
     --underline: #71717a;
     --code-bg: rgba(250, 250, 250, 0.08);
     --hover-bg: rgba(250, 250, 250, 0.06);
-    --prompt-bg: rgba(106, 255, 220, 0.08);
-    --prompt-border: rgba(106, 255, 220, 0.24);
     --copy-hover: rgba(250, 250, 250, 0.08);
     --btn-hover: #d4d4d8;
     --logo-filter: invert(1);
@@ -62,8 +60,6 @@
     --underline: #C9CCCC;
     --code-bg: rgba(17, 18, 18, 0.06);
     --hover-bg: #F0F0F0;
-    --prompt-bg: var(--brand-100);
-    --prompt-border: transparent;
     --copy-hover: #ffffff;
     --btn-hover: #3a3d3d;
     --logo-filter: none;
@@ -211,7 +207,6 @@
   }
 
   /* ---- Guide components ---- */
-  .hero .callout:last-child { margin-bottom: 0; }
 
   /* Callouts */
   .callout {
@@ -227,7 +222,7 @@
 
   /* Prompt blocks */
   .prompt {
-    background: var(--prompt-bg); border: 1px solid var(--prompt-border); border-radius: var(--radius-main);
+    background: var(--surface); border: var(--hair) solid var(--border); border-radius: var(--radius-medium);
     padding: var(--space-3) 20px; margin: var(--space-5) 0;
     display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); align-items: start;
   }
@@ -345,10 +340,6 @@
     <div class="hero">
     <h1>224 Website System Docs</h1>
     <p class="lead">Your guide to the 224 Website System, built using the Lumos framework: how your Webflow site is put together, how to make updates and changes, and how to ask your AI agent for help.</p>
-    <div class="callout">
-      <span class="label">Prefer to ask?</span>
-      <p>Your site comes with 224 Agent Instructions installed, so an AI agent connected to your site can walk you through anything in this guide, on your own site. <a href="#asking-your-ai-agent">See Asking Your AI Agent below</a>.</p>
-    </div>
     </div>
 
     <details class="toc-mobile">
