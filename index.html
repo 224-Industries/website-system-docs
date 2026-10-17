@@ -271,6 +271,8 @@
       <li><a href="#your-first-step">Your First Step: Build a simple section</a></li>
       <li><a href="#keeping-images-light">Keeping Images Light</a></li>
       <li><a href="#using-hubspot-forms">Using HubSpot Forms</a></li>
+        <li><a href="#seeing-how-your-site-is-doing">Seeing How Your Site Is Doing</a></li>
+      <li><a href="#seeing-how-your-site-is-doing">Seeing How Your Site Is Doing</a></li>
     </ul>
   </nav>
 
@@ -707,6 +709,56 @@
           </div>
         </div>
       </details>
+    </section>
+
+    <!-- Seeing How Your Site Is Doing -->
+    <section id="seeing-how-your-site-is-doing">
+      <h2>Seeing How Your Site Is Doing</h2>
+      <p>Webflow keeps its own data on your site: visits and goals in Analyze, test results in Optimize, and how AI tools read your site in AEO Analytics. Your Webflow plan may include one, two or all three. Our free <code>webflow-insights</code> skill lets your AI agent read whichever ones your site has and explain them in plain words.</p>
+
+      <h3>Setting it up</h3>
+      <ol class="steps">
+        <li><strong>Download <code>webflow-insights.skill</code></strong> from <a href="https://224industries.com.au/webflow-skills">our Webflow Skills page</a>.</li>
+        <li><strong>Add it to your AI agent.</strong> In Claude, go to Settings, then Capabilities, then Skills, and upload the file. Other agents have their own place for skills.</li>
+        <li><strong>Check your agent is connected to your site</strong> through Webflow's MCP server, the same connection your agent instructions use.</li>
+      </ol>
+
+      <h3>What to ask</h3>
+      <div class="prompt">
+        <span class="label">Start here</span>
+        <q>Use the webflow-insights skill.</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <p class="prompt-note">With no question, it gives you a snapshot of the last 28 days and suggests what to ask next. You can reply with one of its suggestions, or just say "the first one".</p>
+
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Run a monthly check-up on our site for last month.</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Why did visits drop last week?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Has our homepage test got a winner yet?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+      <div class="prompt">
+        <span class="label">Try asking</span>
+        <q>Are any visitors arriving from ChatGPT or other AI tools?</q>
+        <button class="copy-btn" type="button">Copy</button>
+      </div>
+
+      <h3>Good to know</h3>
+      <ul>
+        <li><strong>It only reads your data.</strong> It can't change your site, your tests or your settings.</li>
+        <li><strong>It works with what your plan includes.</strong> If your site doesn't have Optimize or AEO Analytics, it says so in one line and answers from what you do have.</li>
+        <li><strong>Its numbers won't match Google Analytics exactly.</strong> The two tools count visits differently, so compare each one with itself over time.</li>
+        <li><strong>It can only see what your Webflow account can see.</strong> If a teammate gets a different answer, check you both have the same access.</li>
+      </ul>
     </section>
 
     <div class="support">
